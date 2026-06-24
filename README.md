@@ -114,6 +114,7 @@ python3 harness/research-project-os/scripts/smoke_project_os_e2e.py
 - [Architecture](docs/ARCHITECTURE.md)：通用对象模型和生命周期。
 - [Assets](docs/ASSETS.md)：no-hardlink 外置资产策略。
 - [Agent integration](docs/AGENT_INTEGRATION.md)：agent 如何把它作为第一路由。
+- [Simulated workflow](docs/SIMULATED_WORKFLOW.md)：一个从建项到发布的模拟工作流。
 - [Use cases](docs/USE_CASES.md)：不同领域项目如何套用。
 
 ## 当前关系
