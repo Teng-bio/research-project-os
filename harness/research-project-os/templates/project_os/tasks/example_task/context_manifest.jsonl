@@ -1,0 +1,2 @@
+{"type":"state","path":"PROJECT_STATE.md","purpose":"current project state","required":true}
+{"type":"workflow","path":".project_os/workflow.md","purpose":"project workflow","required":true}

@@ -1,0 +1,20 @@
+{
+  "task_id": "example_task",
+  "title": "Example task",
+  "status": "active",
+  "kind": "analysis",
+  "stage": "Intake",
+  "branch_id": "main",
+  "parent_task_id": null,
+  "depends_on": {"tasks": [], "results": []},
+  "task_path": ".project_os/branches/main/tasks/example_task",
+  "created_at": "1970-01-01T00:00:00+00:00",
+  "updated_at": "1970-01-01T00:00:00+00:00",
+  "owner": "",
+  "priority": "normal",
+  "objective_file": "objective.md",
+  "context_file": "context.md",
+  "context_manifest": "context_manifest.jsonl",
+  "handoff_file": "handoff.md",
+  "notes": "Template only; do not copy into active projects unless needed."
+}

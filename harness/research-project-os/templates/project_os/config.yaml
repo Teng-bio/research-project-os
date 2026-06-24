@@ -1,0 +1,51 @@
+schema_version: 1
+project_os_dir: .project_os
+# declarative: create-run uses the first root unless --run-root is provided; branch layer is always preserved.
+run_roots:
+  - runs
+  - analysis_runs
+human_entry_files:
+  - PROJECT_STATE.md
+  - DATA_ASSETS.md
+  - RESULTS_INDEX.md
+  - RUNS_INDEX.tsv
+  - DECISIONS.md
+# declarative but guarded: P0 still requires explicit dry-run/apply gates.
+promotion_requires_user_approval: true
+# declarative but portable: canonical external asset recovery uses asset_id + asset_locations.tsv.
+external_assets:
+  roots:
+    - /media/teng/HP_P900
+    - /media/teng/备份盘2
+  default_primary_root: /media/teng/HP_P900
+  default_backup_root: /media/teng/备份盘2
+  default_mode: copy
+  allow_optional_symlink_compat: false
+# declarative: empty means use global runtime/current_* pointers.
+runtime:
+  current_session: ''
+  session_pointer_names:
+    - current_branch
+    - current_task
+    - current_run
+# descriptive: install-adapters command arguments are authoritative.
+adapters:
+  codex: true
+  claude: false
+  opencode: false
+# declarative, deferred: active hooks are not executed in P0/P1.
+hooks:
+  enabled: false
+  mode: disabled
+  dispatcher: none
+  event_source: .project_os/journals/events.jsonl
+  allowed_kinds:
+    - session_summary
+    - reminder
+    - opt_in_maintenance
+    - guard
+  policy:
+    must_call_cli: true
+    cannot_write_canonical_state_directly: true
+    failure_is_non_blocking_by_default: true
+    guard_hooks_require_opt_in: true
