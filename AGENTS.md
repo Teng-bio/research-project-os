@@ -4,7 +4,7 @@ This repository documents and packages the general `.project_os/` harness for lo
 
 ## Rules
 
-- Treat the harness as domain-neutral infrastructure, not as a TypeII PKS-specific workflow.
+- Treat the harness as reusable project infrastructure; keep domain-specific workflow details in examples or project overlays.
 - Keep examples clearly labeled as examples; do not hard-code project-specific paths into reusable docs or templates.
 - Preserve the no-hardlink external asset policy: portable references are `asset_id + asset_locations.tsv`.
 - Promotion, release building, and journal restoration that write state must require explicit approval gates.
