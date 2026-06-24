@@ -37,7 +37,7 @@
 ```text
 自然语言触发 / 项目命令
         ↓
-project_os.py route / start / status
+AI workflow skill：路由、状态恢复、上下文确认
         ↓
 branch / task / run / result / asset / session 上下文
         ↓
@@ -64,7 +64,7 @@ branch / task / run / result / asset / session 上下文
 ## 关键原则
 
 1. **项目状态优先**：`.project_os/` 是长期项目的状态层；领域工具、脚本和分析流程是任务执行层。
-2. **先路由再执行**：长期项目中的“继续/计划/状态/运行/结果/绘图/系统发育/训练模型/外置数据”等触发，先进入 `project_os.py route`、`start` 或 `status`。
+2. **先路由再执行**：长期项目中的“继续/计划/状态/运行/结果/绘图/系统发育/训练模型/外置数据”等触发，先进入 AI workflow skill，由 AI 恢复项目状态并确认上下文。
 3. **provenance 必须可恢复**：run 记录输入、命令、输出、参数、指标和环境摘要。
 4. **结果需要显式提升**：`promote-result`、`build-release`、`restore-journal --apply` 等写入性动作必须带 `--approved`。
 5. **大文件不使用 hard link**：canonical 引用是 `asset_id + .project_os/indexes/asset_locations.tsv`；symlink 只能是可选本地兼容层，不能作为恢复依据。
@@ -72,41 +72,41 @@ branch / task / run / result / asset / session 上下文
 
 ## 快速开始
 
-从本仓库中的 harness 脚本创建项目骨架：
+`research-project-os` 的主要使用方式是**安装到 AI 的 skill / workflow 系统中**，然后通过自然语言让 AI 帮你维护项目工作台。用户不需要把它当作一个单独命令行工具来记忆。
 
-```bash
-python3 harness/research-project-os/scripts/project_os.py new-project \
-  --root /path/to/my_project \
-  --title "My Long Project" \
-  --apply
+安装完成后，可以直接对 AI 说：
+
+```text
+在 /path/to/my_project 新建一个长期项目工作台，主题是 “My Long Project”。
+先给我看 dry-run 计划，确认后再应用。
 ```
 
-在已有项目中初始化 `.project_os/`：
+已有项目可以说：
 
-```bash
-python3 harness/research-project-os/scripts/project_os.py init \
-  --root /path/to/existing_project \
-  --apply
+```text
+这个目录是一个已经存在的长期项目。请为它接入 research-project-os 工作流，
+创建 .project_os/，保留现有文件，不要移动或删除历史结果。
 ```
 
-查看当前状态：
+继续项目时可以说：
 
-```bash
-python3 harness/research-project-os/scripts/project_os.py status --root /path/to/my_project
+```text
+继续这个项目。先读取 .project_os/ 的当前状态，告诉我当前 branch、task、run、
+已有结果和下一步建议，然后再等我确认执行。
 ```
 
-解释短触发词会如何进入 harness：
+记录一次运行时可以说：
 
-```bash
-python3 harness/research-project-os/scripts/project_os.py route \
-  --root /path/to/my_project \
-  --trigger "继续下一步"
+```text
+我要开始一次新的分析运行。请为当前任务创建 run，
+记录输入数据、执行命令、环境、输出文件和关键指标。
 ```
 
-运行 smoke test：
+登记大文件时可以说：
 
-```bash
-python3 harness/research-project-os/scripts/smoke_project_os_e2e.py
+```text
+这个大文件已经在外部硬盘上。请把它登记为外置资产，
+不要复制回项目，不要 hardlink；用 asset_id 和 asset_locations.tsv 记录位置和 checksum。
 ```
 
 ## 文档
@@ -114,6 +114,7 @@ python3 harness/research-project-os/scripts/smoke_project_os_e2e.py
 - [Architecture](docs/ARCHITECTURE.md)：通用对象模型和生命周期。
 - [Assets](docs/ASSETS.md)：no-hardlink 外置资产策略。
 - [Agent integration](docs/AGENT_INTEGRATION.md)：agent 如何把它作为第一路由。
+- [Installation](docs/INSTALLATION.md)：如何把这套工作流安装到 AI 中使用。
 - [Simulated workflow](docs/SIMULATED_WORKFLOW.md)：一个从建项到发布的模拟工作流。
 - [Use cases](docs/USE_CASES.md)：不同领域项目如何套用。
 
